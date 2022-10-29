@@ -1,18 +1,27 @@
-resource "aws_iam_user" "lb" {
-  name = var.user_name
-  path = "/system/"
-}
+module "user-training-module" {
+  source  = "app.terraform.io/devops-kubernetes-training/user-training-module/iam"
+  version = "1.0.1"
+  # insert required variables here
 
-resource "aws_iam_user_login_profile" "example" {
-  user                    = aws_iam_user.lb.name
-  password_reset_required = true
-}
-
-resource "aws_iam_user_policy" "lb_ro" {
-  name = var.policy_name
-  user = aws_iam_user.lb.name
-
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
-  policy = jsonencode(var.policy_document)
+  user_name   = "fabian-user"
+  policy_name = "fabian-policy"
+  policy_document = {
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:Describe*", "iam:GetAccountPasswordPolicy", "elasticloadbalancing:DescribeLoadBalancers"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+      {
+        Action = [
+          "iam:ChangePassword"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      }
+    ]
+  }
 }

@@ -1,10 +1,10 @@
 module "user-training-module" {
-  source  = "app.terraform.io/devops-kubernetes-training/user-training-module/iam"
-  version = "1.0.1"
+   source  = "app.terraform.io/Berat-Rrecaj/module/lab"
+  version = "1.0.0"
   # insert required variables here
 
-  user_name   = "fabian-user"
-  policy_name = "fabian-policy"
+  user_name   = "berat-user"
+  policy_name = "berat-policy"
   policy_document = {
     Version = "2012-10-17"
     Statement = [

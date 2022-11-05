@@ -1,6 +1,6 @@
 module "user-training-module" {
    source  = "app.terraform.io/Berat-Rrecaj/module/lab"
-  version = "1.0.0"
+  version = "1.0.1"
   # insert required variables here
 
   user_name   = "berat-user"
